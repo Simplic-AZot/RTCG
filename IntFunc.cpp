@@ -294,7 +294,7 @@ TValue *map_d(void *node, TArgs *args, Context &context) {
 TValue *map_linked(void *node, TArgs *args, Context &context) {
 	id_point p = cgt->elGetPtName(context.element, args->value(0)->toStr());
 	if(p)
-		return new TValue(cgt->ptGetRLinkPoint(p) > 0);
+		return new TValue(cgt->ptGetRLinkPoint(p) != nullptr);
 	return new TValue(false);
 }
 
