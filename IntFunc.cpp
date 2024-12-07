@@ -185,7 +185,7 @@ TValue *map_event(void *node, TArgs *args, Context &context) {
 			}
 			
 #ifdef BUILDING_DLL
-			char __buf[128];
+			char *__buf = new char[128];
 			strcpy(__buf, event_name);
 			event_name =__buf;
 #endif
@@ -267,7 +267,7 @@ TValue *map_d(void *node, TArgs *args, Context &context) {
 				}
 			}
 #ifdef BUILDING_DLL
-			char __buf[128];
+			char *__buf = new char[128];
 			strcpy(__buf, event_name);
 			event_name =__buf;
 #endif
