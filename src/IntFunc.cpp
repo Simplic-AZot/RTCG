@@ -157,6 +157,15 @@ TValue *map_event(void *node, TArgs *args, Context &context) {
 
 	CALL_TRACE_BEGIN("*event")
 	const char *pname = args->at(0)->value->toStr();
+	switch(cgt->elGetClassIndex(context.element)) {
+		case CI_MultiElement: {
+			context.element = cgt->sdkGetElement(cgt->elGetSDK(context.element), 0);
+			break; }
+		case CI_EditMulti:
+		case CI_EditMultiEx: {
+				 context.element = cgt->elGetSDK(context.element);
+				 break; }
+	}
 	id_point p = cgt->elGetPtName(context.element, pname);
 	if(p) {
 		id_point rp = cgt->ptGetRLinkPoint(p);
@@ -210,6 +219,7 @@ TValue *map_event(void *node, TArgs *args, Context &context) {
 			CALL_TRACE_END("*event")
 			CG_LOG_RETURN(ret)
 		}
+		else { CG_LOG_INFO("Point not connected ") }
 	}
 	else {
 		CG_LOG_INFO("Point not found ")
