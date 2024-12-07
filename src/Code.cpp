@@ -39,8 +39,15 @@ int TCode::parseUnit(id_element e, const char *unit) {
 #ifdef DUMP_CODE_TREE
 	dump();
 #endif
-	if ((ret = parser->errCode))
-		cgt->trace(parser->errCode);
+	if ((ret = parser->errCode)) {
+		char *buf = new char[32];
+		int_to_str(parser->errCode, buf);
+		std::string err;
+		err.append("Parser error: ").append(buf).append(" in module ").append(fileName);
+		cgt->trace(err.c_str());
+		dump();
+		delete buf;
+	}
 	delete parser;
 
 	CG_LOG_RETURN(ret)
