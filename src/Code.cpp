@@ -59,7 +59,7 @@ void TCode::dump() {
 	CG_LOG_BEGIN
 
 	std::string s(codePath);
-	HANDLE f = fopen(s.append("log/").append(name).append(".log").c_str(), "w+");
+	HANDLE f = fopen(s.append("log").append(PATH_SLASH).append(name).append(".log").c_str(), "w+");
 	root->dump(f, 0);
 	fclose(f);
 	

@@ -9,6 +9,12 @@
 
 #define HANDLE FILE*
 
+#ifdef _WIN32
+	#define PATH_SLASH "\\"
+#else
+	#define PATH_SLASH "/"
+#endif
+
 extern void lowerCase(char *to, const char *from);
 extern void upperCase(char *to, const char *from);
 

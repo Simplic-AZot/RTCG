@@ -246,7 +246,7 @@ TValue *TBlockItemObject::execMethod(TTreeNode *node, long index, Context &conte
 		case 9: {
 			char *s = cgt->ReadStrParam(PARAM_PROJECT_NAME, context.element);
 			std::string p(s);
-			int pos = p.find_last_of('/');
+			int pos = p.find_last_of(PATH_SLASH);
 			std::string file(p.substr(0, pos+1).c_str());
 			delete[] s;
 			file.append(context.args->value(0)->toStr());

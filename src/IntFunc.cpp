@@ -408,7 +408,7 @@ TValue *map_fclose(void *node, TArgs *args, Context &context) {
 TValue *map_project_dir(void *node, TArgs *args, Context &context) {
 	char *s = cgt->ReadStrParam(PARAM_PROJECT_PATH, context.element);
 	std::string p(s);
-	int pos = p.find_last_of('/');
+	int pos = p.find_last_of(PATH_SLASH);
 	TValue *val = new TValue(p.substr(0, pos+1).c_str(), true);
 	delete[] s;
 	return val;
@@ -417,7 +417,7 @@ TValue *map_project_dir(void *node, TArgs *args, Context &context) {
 TValue *map_project_name(void *node, TArgs *args, Context &context) {
 	char *s = cgt->ReadStrParam(PARAM_PROJECT_NAME, context.element);
 	std::string p(s);
-	int pos = p.find_last_of('/');
+	int pos = p.find_last_of(PATH_SLASH);
 	TValue *val = new TValue(p.substr(pos + 1, p.length() - pos - 5).c_str(), true);
 	delete[] s;
 	return val;
