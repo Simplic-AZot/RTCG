@@ -406,7 +406,7 @@ TValue *map_fclose(void *node, TArgs *args, Context &context) {
 }
 
 TValue *map_project_dir(void *node, TArgs *args, Context &context) {
-	char *s = cgt->ReadStrParam(PARAM_PROJECT_NAME, context.element);
+	char *s = cgt->ReadStrParam(PARAM_PROJECT_PATH, context.element);
 	std::string p(s);
 	int pos = p.find_last_of('/');
 	TValue *val = new TValue(p.substr(0, pos+1).c_str(), true);
