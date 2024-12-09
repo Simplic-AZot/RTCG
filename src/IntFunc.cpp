@@ -119,27 +119,27 @@ TValue *map_error(void *node, TArgs *args, Context &context) {
 }
 
 TValue *map_code(void *node, TArgs *args, Context &context) {
-	TValue *val = args->value(0)->duplicate();
+	TValue *val = new TValue(args->value(0)->duplicate());
 	if(val->getType() == DATA_STR) {
 		val->flags |= FLG_CODE;
 	}
 	else {
 		TValue *v = new TValue(val->toCode(), true);
-		TValue:free(val);
+		TValue::free(val);
 		val = v;
 	}
 	CG_LOG_RETURN(val)
 }
 
 TValue *map_string(void *node, TArgs *args, Context &context) {
-	TValue *val = args->value(0)->duplicate();
+	TValue *val = new TValue(args->value(0)->duplicate());
 	if(val->getType() == DATA_STR) {
 		if(val->flags & FLG_CODE)
 			val->flags ^= FLG_CODE;
 	}
 	else {
 		TValue *v = new TValue(val->toCode());
-		TValue:free(val);
+		TValue::free(val);
 		val = v;
 	}
 	
