@@ -9,7 +9,7 @@
 TCode::TCode() {
 	CG_LOG_BEGIN
 
-	name = NULL;
+	name = nullptr;
 	root = new TUnitNode(this);
 }
 

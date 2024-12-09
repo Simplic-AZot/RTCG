@@ -62,15 +62,15 @@ public:
 	double toReal();
 
 	TScriptObject *toScriptObj() {
-		return isObject() ? (TScriptObject*)value : NULL;
+		return isObject() ? (TScriptObject*)value : nullptr;
 	}
 
 	TScriptProc *toProc() {
-		return isProc() ? (TScriptProc*) value : NULL;
+		return isProc() ? (TScriptProc*) value : nullptr;
 	}
 
 	inline TArray *toArr() {
-		return isArray() ? (TArray*) value : NULL;
+		return isArray() ? (TArray*) value : nullptr;
 	}
 
 	inline DATA_TYPES getType() {
@@ -143,8 +143,8 @@ public:
 	std::string name;
 	TValue *value;
 
-	TVarItem() { value = NULL; }
-	TVarItem(const char *name) { value = NULL; this->name = name; }
+	TVarItem() { value = nullptr; }
+	TVarItem(const char *name) { value = nullptr; this->name = name; }
 	~TVarItem() { if(value) TValue::free(value); }
 };
 

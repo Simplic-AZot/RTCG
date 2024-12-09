@@ -8,10 +8,6 @@ extern void _log_clear_();
 extern std::string __level;
 extern std::string __call_level;
 
-#ifndef NULL
-#define NULL 0
-#endif
-
 #define LOG_
 #define CALL_TRACE_
 
@@ -43,7 +39,7 @@ extern std::string __call_level;
 
 #define cg_assert_type(_x, _t) if(!(_x)) {cg_log("assert error: \n") return _t;}
 #define cg_assert(_x) cg_assert_type(_x, -1)
-#define cg_assertv(_x) cg_assert_type(_x, NULL)
+#define cg_assertv(_x) cg_assert_type(_x, nullptr)
 
 #define ASSERT(x, msg) if(!x) { printf("FATAL[%s,%s:%d]: %s\n", __FILE__, __FUNCTION__, __LINE__, msg); }
 

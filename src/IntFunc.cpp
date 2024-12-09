@@ -358,8 +358,8 @@ TValue *map_get(void *node, TArgs *args, Context &context) {
 	return new TValue();
 }
 
-char *_stringLexem = NULL;
-char *_concatLexem = NULL;
+char *_stringLexem = nullptr;
+char *_concatLexem = nullptr;
 
 void init_buffer(char* &buf, const char *value) {
 	if(buf)

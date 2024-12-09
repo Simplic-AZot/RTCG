@@ -54,11 +54,11 @@ const char *tnodeNames[ND_COUNT] = {
 };
 
 TTreeNode::TTreeNode(NODE_TYPES type) {
-	childs = NULL;
+	childs = nullptr;
 	count = 0;
-	value = NULL;
+	value = nullptr;
 	nodeType = type;
-	parent = NULL;
+	parent = nullptr;
 }
 
 TTreeNode::~TTreeNode() {
@@ -87,11 +87,11 @@ void TTreeNode::removeNode(TTreeNode *node) {
 }
 
 bool TTreeNode::hasParent() {
-	return parent != NULL;
+	return parent != nullptr;
 }
 
 bool TTreeNode::hasChild() {
-	return childs != NULL;
+	return childs != nullptr;
 }
 
 TUnitNode *TTreeNode::getRoot() {
@@ -121,7 +121,7 @@ TTreeNode *TTreeNode::next(int &curNode) {
 	if (curNode < count) {
 		nd = childs[curNode];
 		curNode++;
-	} else nd = NULL;
+	} else nd = nullptr;
 	return nd;
 }
 
@@ -129,7 +129,7 @@ TValue *TTreeNode::run(Context &context) {
 	TTreeNode *item;
 	for (int curNode = first(context); (item = next(curNode)) && !context.needBreak();)
 		TValue::free(item->run(context));
-	return NULL;
+	return nullptr;
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -149,7 +149,7 @@ TValue *TUnitNode::run(Context &context) {
 
 	CALL_TRACE_BEGIN(codeTree->name)
 
-	TValue *val = NULL;
+	TValue *val = nullptr;
 	TFuncNode *fnode = getFunc(context.entry);
 	if(fnode)
 		val = fnode->run(context);
@@ -164,12 +164,12 @@ TFuncNode *TUnitNode::getFunc(const char *name) {
 		if (childs[i]->nodeType == ND_FUNC && strcasecmp(((TFuncNode*) childs[i])->name, name) == 0)
 			return (TFuncNode*) childs[i];
 	}
-	return NULL;
+	return nullptr;
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-TFuncNode::TFuncNode(char *_name) : TTreeNode(ND_FUNC), body(NULL) {
+TFuncNode::TFuncNode(char *_name) : TTreeNode(ND_FUNC), body(nullptr) {
 	CG_LOG_BEGIN
 
 	name = _name;
@@ -216,7 +216,7 @@ TValue *TFuncNode::run(Context &context) {
 		vars->at(i)->value = new TValue();
 	}
 
-	result = NULL;
+	result = nullptr;
 	Context c(context.element, context.entry, args, this);
 	if(body)
 		body->run(c);
@@ -265,7 +265,7 @@ TValue *TIfNode::run(Context &context) {
 	}
 	TValue::free(cont);
 
-	CG_LOG_RETURN(NULL)
+	CG_LOG_RETURN(nullptr)
 }
 
 TTreeNode *TIfNode::returnBlock() {
@@ -287,7 +287,7 @@ TValue *TForNode::run(Context &context) {
 	}
 	TValue::free(cont);
 
-	CG_LOG_RETURN(NULL)
+	CG_LOG_RETURN(nullptr)
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -457,8 +457,8 @@ TValue *TSmallEqNode::run(Context &context) {
 TValue *TOrNode::run(Context &context) {
 	CG_LOG_BEGIN
 
-	TValue *op1 = NULL;
-	TValue *op2 = NULL;
+	TValue *op1 = nullptr;
+	TValue *op2 = nullptr;
 	TValue *result = new TValue((op1 = childs[0]->run(context))->toBool() || (op2 = childs[1]->run(context))->toBool());
 	TValue::free(op1);
 	TValue::free(op2);
@@ -471,8 +471,8 @@ TValue *TOrNode::run(Context &context) {
 TValue *TAndNode::run(Context &context) {
 	CG_LOG_BEGIN
 
-	TValue *op1 = NULL;
-	TValue *op2 = NULL;
+	TValue *op1 = nullptr;
+	TValue *op2 = nullptr;
 	TValue *result = new TValue((op1 = childs[0]->run(context))->toBool() && (op2 = childs[1]->run(context))->toBool());
 	TValue::free(op1);
 	TValue::free(op2);
@@ -848,7 +848,7 @@ TValue *TReturnNode::run(Context &context) {
 	}
 	context._exit();
 
-	CG_LOG_RETURN(NULL)
+	CG_LOG_RETURN(nullptr)
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -868,7 +868,7 @@ TValue *TDotNode::run(Context &context) {
 
 	TValue *object = childs[0]->run(context);
 	TValue *field = childs[1]->run(context);
-	TValue *result = NULL;
+	TValue *result = nullptr;
 
 	TScriptObject *obj = object->toScriptObj();
 	if(obj) {
@@ -907,7 +907,7 @@ TValue *TCallNode::run(Context &context) {
 
 	TArgs *args = new TArgs();
 	TScriptProc *proc = procValue->toProc();
-	TValue *val = NULL;
+	TValue *val = nullptr;
 	if(proc) {
 		for (int i = 1; i < count; i++)
 			args->add(childs[i]->run(context));
@@ -962,8 +962,8 @@ TValue *TCastNode::run(Context &context) {
 TValue *TBitAndNode::run(Context &context) {
 	CG_LOG_BEGIN
 
-	TValue *op1 = NULL;
-	TValue *op2 = NULL;
+	TValue *op1 = nullptr;
+	TValue *op2 = nullptr;
 	TValue *result = new TValue((op1 = childs[0]->run(context))->toInt() & (op2 = childs[1]->run(context))->toInt());
 	TValue::free(op1);
 	TValue::free(op2);
@@ -976,8 +976,8 @@ TValue *TBitAndNode::run(Context &context) {
 TValue *TBitOrNode::run(Context &context) {
 	CG_LOG_BEGIN
 
-	TValue *op1 = NULL;
-	TValue *op2 = NULL;
+	TValue *op1 = nullptr;
+	TValue *op2 = nullptr;
 	TValue *result = new TValue((op1 = childs[0]->run(context))->toInt() | (op2 = childs[1]->run(context))->toInt());
 	TValue::free(op1);
 	TValue::free(op2);
@@ -992,7 +992,7 @@ TValue *TShiftLeftNode::run(Context &context) {
 
 	TValue *op1 = childs[0]->run(context);
 	TValue *op2 = childs[1]->run(context);
-	TValue *result = NULL;
+	TValue *result = nullptr;
 	if(op1->isObject()) {
 		result = op1->toScriptObj()->putStream(this, op2, context);
 	}
@@ -1010,8 +1010,8 @@ TValue *TShiftLeftNode::run(Context &context) {
 TValue *TShiftRightNode::run(Context &context) {
 	CG_LOG_BEGIN
 
-	TValue *op1 = NULL;
-	TValue *op2 = NULL;
+	TValue *op1 = nullptr;
+	TValue *op2 = nullptr;
 	TValue *result = new TValue((op1 = childs[0]->run(context))->toInt() >> (op2 = childs[1]->run(context))->toInt());
 	TValue::free(op1);
 	TValue::free(op2);
@@ -1064,7 +1064,7 @@ TValue *TNewNode::run(Context &context) {
 	TScriptObject *obj = createObject(name, this, c);
 	delete args;
 	
-	if(obj == NULL)
+	if (obj == nullptr)
 		CG_LOG_RETURN(new TValue("Class not found"))
 
 	CG_LOG_RETURN(new TValue(obj))

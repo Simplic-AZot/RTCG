@@ -48,7 +48,7 @@ TValue::TValue(int val) {
 TValue::TValue(bool val) {
 	init();
 	type = DATA_INT;
-	value = val ? (void*) 1 : NULL;
+	value = val ? (void*)1 : nullptr;
 }
 
 TValue::TValue(double val) {
@@ -136,8 +136,8 @@ TValue::~TValue() {
 }
 
 void TValue::init() {
-	val_c = NULL;
-	value = NULL;
+	val_c = nullptr;
+	value = nullptr;
 	flags = 0;
 	codeType = 0;
 	ref = 1;
@@ -147,7 +147,7 @@ void TValue::init() {
 void TValue::clear() {
 	if (val_c)
 		delete[] val_c;
-	val_c = NULL;
+	val_c = nullptr;
 	switch (type) {
 		case DATA_REAL:
 			delete (double*) value;
@@ -313,9 +313,9 @@ bool TValue::toBool() {
 	switch (type) {
 		case DATA_INT:
 		case DATA_PROC:
-			return value != NULL;
+			return value != nullptr;
 		case DATA_STR:
-			return value != NULL && strlen((char*) value) > 0;
+			return value != nullptr && strlen((char*) value) > 0;
 		case DATA_REAL:
 			return *(double*) value != 0.0;
 		case DATA_ARRAY:
@@ -446,7 +446,7 @@ TVarItem *TVarsList::add(char *name) {
 }
 
 TVarItem *TVarsList::add(TValue *value) {
-	cg_assert_type(value, NULL)
+	cg_assert_type(value, nullptr)
 	TVarItem *item = new TVarItem();
 	item->value = value;
 	push_back(item);
@@ -457,7 +457,7 @@ TVarItem* TVarsList::findVarByName(const char *name) {
 	for (iterator v = begin(); v != end(); v++)
 		if ((*v)->name.compare(name) == 0)
 			return *v;
-	return NULL;
+	return nullptr;
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -475,14 +475,14 @@ TScriptProc::TScriptProc(TScriptProc *p) {
 }
 
 TScriptProc::TScriptProc(internal_proc _proc) {
-	obj = NULL;
+	obj = nullptr;
 	proc = (void*)_proc;
 	type = PROC_INTERNAL;
 }
 
 TScriptProc::TScriptProc(TTreeNode *node) {
 	obj = node;
-	proc = NULL;
+	proc = nullptr;
 	type = PROC_SCRIPT;
 }
 
@@ -494,7 +494,7 @@ TScriptProc::~TScriptProc() {
 TValue *TScriptProc::run(TTreeNode *node, TArgs *args, Context &context) {
 	CG_LOG_BEGIN
 
-	TValue *val = NULL;
+	TValue *val = nullptr;
 	switch (type) {
 		case PROC_OBJECT: {
 			Context c(context.element, context.entry, args, context.func);

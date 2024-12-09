@@ -24,7 +24,7 @@ void eraseData(id_sdk sdk) {
 		ElementData *data = (ElementData *)cgt->elGetData(e);
 		if(data) {
 			delete data;
-			cgt->elSetData(e, NULL);
+			cgt->elSetData(e, nullptr);
 		}
 		
 		if(cgt->elGetClassIndex(e) == CI_MultiElement) {

@@ -253,7 +253,7 @@ public:
 
 class TStringNode : public TConstNode {
 public:
-	TStringNode(char *val = NULL, bool code = false) : TConstNode(ND_STR) {
+	TStringNode(char *val = nullptr, bool code = false) : TConstNode(ND_STR) {
 		value = new TValue();
 		value->setValueStr(val);
 		if (code) value->flags |= FLG_CODE;
@@ -446,7 +446,7 @@ struct Context {
 	int breakLevel;
 	int dataArgsIndex;
 	
-	Context(id_element element, const char *entry, TArgs *args, TFuncNode *func = NULL) {
+	Context(id_element element, const char *entry, TArgs *args, TFuncNode *func = nullptr) {
 		this->element = element;
 		this->args = args;
 		this->entry = entry;

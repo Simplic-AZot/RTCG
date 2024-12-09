@@ -26,7 +26,7 @@ TValue *ElementData::getField(const char *name) {
 		if(strcasecmp(name, (*f)->name.c_str()) == 0)
 			return (*f)->value;
 
-	return NULL;
+	return nullptr;
 }
 
 TValue *ElementData::addField(const char *name) {

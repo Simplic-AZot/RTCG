@@ -371,7 +371,7 @@ struct TCodeGenTools {
 		return i;
 	}
 
-	char *ReadStrParam(int Index, id_element e = NULL) {
+	char *ReadStrParam(int Index, id_element e = nullptr) {
 		char *c;
 		c = new char[256];
 		*((id_element*)c) = e;
@@ -401,8 +401,8 @@ struct TCodeGenTools {
 			if(strcasecmp(name, propGetName(p)) == 0)
 				return p;
 		}
-		
-		return NULL;
+
+		return nullptr;
 	}
 	bool isDefProp(id_element e, id_prop p) {
 		for(int i = 0; i < elGetPropCount(e); i++) {

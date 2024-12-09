@@ -13,7 +13,7 @@ extern PCodeGenTools cgt;
 TElementRunner::TElementRunner() {
 	CG_LOG_BEGIN
 
-	tools = NULL;
+	tools = nullptr;
 }
 
 TElementRunner::~TElementRunner() {
@@ -43,7 +43,7 @@ TCode *TElementRunner::find(const char *unit) {
 		if (strcasecmp(item->name, unit) == 0)
 			CG_LOG_RETURN(item)
 
-	CG_LOG_RETURN(NULL)
+	CG_LOG_RETURN(nullptr)
 }
 
 int TElementRunner::init(id_element e) {
@@ -73,8 +73,8 @@ TValue* TElementRunner::run(id_element e, const char *entry, TArgs *args) {
 	CG_LOG_BEGIN
 
 	if(init(e))
-		CG_LOG_RETURN(NULL)
-	
+		CG_LOG_RETURN(nullptr)
+
 	TCode *code = find(cgt->elGetClassName(e));
 	ASSERT(code, "runner not found")
 	

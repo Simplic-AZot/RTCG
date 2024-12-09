@@ -6,7 +6,7 @@
 #include "ElementData.h"
 #include "Runner.h"
 
-TScriptObject **objs = NULL;
+TScriptObject **objs = nullptr;
 int count = 0;
 
 #define RET_EMPTY return new TValue("");
@@ -37,7 +37,7 @@ TScriptObject::TScriptObject(const char *_name) {
 	name = new char[strlen(_name) + 1];
 	strcpy(name, _name);
 	ref = 0;
-	nameValue = NULL;
+	nameValue = nullptr;
 }
 
 TScriptObject::~TScriptObject() {
@@ -90,7 +90,7 @@ bool TScriptObject::isField(script_proc index, Context &context) {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 TBlockItem::TBlockItem(const char *name) {
-	items = NULL;
+	items = nullptr;
 	count = 0;
 	expand = 0;
 
@@ -109,7 +109,7 @@ void TBlockItem::clear() {
 	for (int i = 0; i < count; i++)
 		TValue::free(items[i]);
 	delete items;
-	items = NULL;
+	items = nullptr;
 	count = 0;
 	expand = 0;
 }
@@ -313,7 +313,7 @@ TBlockItemObject *TBlockObject::searchBlock(const char *name) {
 	for (TBlockItems::iterator block = items.begin(); block != items.end(); block++)
 		if((*block)->isObject(name))
 			return *block;
-	return NULL;
+	return nullptr;
 }
 
 bool TBlockObject::removeBlock(const char *name) {
@@ -394,7 +394,7 @@ TValue *TSysObject::execMethod(TTreeNode *node, long index, Context &context) {
 	else {
 		CG_LOG_RETURN(root->childs[index - 100]->run(context))
 	}
-	CG_LOG_RETURN(NULL)
+	CG_LOG_RETURN(nullptr)
 }
 
 script_proc TSysObject::getProc(TValue *val, Context &context) {
@@ -422,7 +422,7 @@ TElementObject::TElementObject() : TScriptObject("this") {
 	CG_LOG_BEGIN
 
 	ref = -1;
-	element = NULL;
+	element = nullptr;
 	initMap();
 }
 
@@ -479,7 +479,7 @@ id_point getPointByType(id_element e, int type, int index) {
 			c++;
 		}
 	}
-	return NULL;
+	return nullptr;
 }
 
 TValue *TElementObject::execMethod(TTreeNode *node, long index, Context &context) {
@@ -514,7 +514,7 @@ TValue *TElementObject::execMethod(TTreeNode *node, long index, Context &context
 			case 1:
 				CG_LOG_RETURN(new TValue(cgt->elGetPtCount(e)))
 			case 2: {
-				id_point p = NULL;
+				id_point p = nullptr;
 				if(args->value(0)->getType() == DATA_INT) {
 					p = cgt->elGetPt(e, args->value(0)->toInt());
 				}
@@ -977,7 +977,7 @@ TScriptObject *searchObject(const char *name) {
 	for (int i = 0; i < count; i++)
 		if(objs[i]->isObject(name))
 			return objs[i];
-	return NULL;
+	return nullptr;
 }
 
 TScriptObject *addObject(TScriptObject *obj) {
@@ -1005,7 +1005,7 @@ void initObjects() {
 	CG_LOG_BEGIN
 
 	count = 0;
-	objs = NULL;
+	objs = nullptr;
 	addObject(new TBlockObject());
 	addObject(new TLngObject());
 	addObject(new TElementObject());
@@ -1028,5 +1028,5 @@ TScriptObject *createObject(const char *name, TTreeNode *node, Context &context)
 			obj->create(node, context);
 			return obj;
 		}
-	return NULL;
+	return nullptr;
 }
