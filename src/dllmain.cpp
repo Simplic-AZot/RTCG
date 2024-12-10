@@ -8,12 +8,25 @@
 
 PCodeGenTools cgt;
 
+char *stringLexem;
+char *concatLexem;
+
 DLLIMPORT int buildPrepareProc(TBuildPrepareRec *params) {
 	CG_LOG_BEGIN
 
 	_log_clear_();
 
 	CG_LOG_RETURN(CG_SUCCESS)
+}
+
+void init_buffer(char *&buf, const char *value)
+{
+	if (buf)
+		delete buf;
+	int len = strlen(value);
+	buf = new char[len + 1];
+	buf[len] = '\0';
+	strcpy(buf, value);
 }
 
 void eraseData(id_sdk sdk) {
@@ -37,7 +50,8 @@ void eraseData(id_sdk sdk) {
 
 DLLIMPORT int buildProcessProc(TBuildProcessRec *params) {
 	CG_LOG_BEGIN
-
+	init_buffer(stringLexem, "'");
+	init_buffer(concatLexem, " + ");
 	initObjects();
 
 	id_element e;

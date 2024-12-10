@@ -13,9 +13,6 @@ const char *procNames[PROC_COUNT] = {
 	"{internal proc}"
 };
 
-char *stringLexem = "'";
-char *concatLexem = " + ";
-
 TVarsList *gvars = new TVarsList();
 int globalRef = 0;
 

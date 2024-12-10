@@ -358,33 +358,19 @@ TValue *map_get(void *node, TArgs *args, Context &context) {
 	return new TValue();
 }
 
-char *_stringLexem = nullptr;
-char *_concatLexem = nullptr;
-
-void init_buffer(char* &buf, const char *value) {
-	if(buf)
-		delete buf;
-	int len = strlen(value);
-	buf = new char[len+1];
-	buf[len] = '\0';
-	strcpy(buf, value);
-}
-
 TValue *map_param(void *node, TArgs *args, Context &context) {
 	const char* name = args->value(0)->toStr();
 	if(strcmp(name, "string_lexem") == 0) {
 		if(args->size() == 1)
 			return new TValue(stringLexem, true);
 		
-		init_buffer(_stringLexem, args->value(1)->toStr());
-		stringLexem = _stringLexem;
+		init_buffer(stringLexem, args->value(1)->toStr());
 	}
 	if(strcmp(name, "concat_lexem") == 0) {
 		if(args->size() == 1)
 			return new TValue(concatLexem, true);
 		
-		init_buffer(_concatLexem, args->value(1)->toStr());
-		concatLexem = _concatLexem;
+		init_buffer(concatLexem, args->value(1)->toStr());
 	}
 	return new TValue();
 }

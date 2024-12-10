@@ -25,5 +25,8 @@ typedef std::list<TUserType> TUserTypes;
 extern TUserTypes userTypes;
 extern TValue *convert(TValue *val, int type, Context &context);
 extern TValue *map_get(void *node, TArgs *args, Context &context);
+extern char *stringLexem;
+extern char *concatLexem;
+extern void init_buffer(char *&buf, const char *value);
 
 #endif
