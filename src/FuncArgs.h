@@ -9,7 +9,7 @@
 extern int globalRef;
 
 typedef enum {
-	DATA_NONE, DATA_INT, DATA_STR, DATA_REAL, DATA_ARRAY, DATA_OBJECT, DATA_PROC, DATA_COUNT
+	DATA_NONE, DATA_INT, DATA_STR, DATA_REAL, DATA_ARRAY, DATA_OBJECT, DATA_PROC, DATA_COUNT, DATA_FILE
 } DATA_TYPES;
 
 typedef enum {
@@ -53,6 +53,7 @@ public:
 	TValue(double val);
 	TValue(TScriptObject *val);
 	TValue(TScriptProc *val);
+	TValue(FILE *val);
 	~TValue();
 
 	const char *toStr();
@@ -73,6 +74,10 @@ public:
 		return isArray() ? (TArray*) value : nullptr;
 	}
 
+	inline FILE *toFile() {
+		return (FILE *)value;
+	}
+
 	inline DATA_TYPES getType() {
 		return type;
 	}
@@ -88,6 +93,7 @@ public:
 	void setValue(double val);
 	void setValue(TScriptProc *val);
 	void setValue(TScriptObject *val);
+	void setValue(FILE *val);
 	void setValueStr(char *val);
 	void copy(TValue *value);
 	void makeArray();

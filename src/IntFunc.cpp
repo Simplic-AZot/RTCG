@@ -382,22 +382,29 @@ TValue *map_regex_replace(void *node, TArgs *args, Context &context) {
 }
 
 TValue *map_fopen(void *node, TArgs *args, Context &context) {
-
-	RET_EMPTY
+	FILE *f = fopen(args->value(0)->toStr(), args->value(1)->toStr());
+	CG_LOG_RETURN(new TValue(f));
 }
 
 TValue *map_fputs(void *node, TArgs *args, Context &context) {
-
+	fputs(args->value(1)->toStr(), args->value(0)->toFile());
 	RET_EMPTY
 }
 
 TValue *map_fgets(void *node, TArgs *args, Context &context) {
+	FILE *f = args->value(0)->toFile();
+	char line[512];
+	std::string result;
 
-	RET_EMPTY
+	rewind(f);	// В режиме w+, после fputs, указатель находится в конце файла, соответственно ничего не будет считано, а только добавится пачка 0.
+	while (fgets(line, 512, f) != NULL) 	// feof не работает - с ним вообще приложение зависает
+		result.append(line);
+
+	return new TValue((char *)result.c_str());
 }
 
 TValue *map_fclose(void *node, TArgs *args, Context &context) {
-
+	fclose(args->value(0)->toFile());
 	RET_EMPTY
 }
 

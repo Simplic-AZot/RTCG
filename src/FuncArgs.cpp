@@ -68,6 +68,13 @@ TValue::TValue(TScriptProc *val) {
 	value = val;
 }
 
+TValue::TValue(FILE *val)
+{
+	init();
+	type = DATA_FILE;
+	value = val;
+}
+
 TValue* TValue::fromProperty(id_element e, id_prop prop) {
 	switch(cgt->propGetType(prop)) {
 		case data_int:
@@ -166,6 +173,9 @@ void TValue::clear() {
 		case DATA_COUNT:
 			// do nothing
 			break;
+		case DATA_FILE:
+			// do nothing
+			break;
 	}
 	type = DATA_NONE;
 	flags = 0;
@@ -211,6 +221,13 @@ void TValue::setValue(TScriptObject *val) {
 	clear();
 	type = DATA_OBJECT;
 	value = copyObject(val);
+}
+
+void TValue::setValue(FILE *val)
+{
+	clear();
+	type = DATA_FILE;
+	value = val;
 }
 
 void TValue::makeArray() {
@@ -347,6 +364,9 @@ void TValue::copy(TValue *value) {
 			break;
 		case DATA_PROC:
 			setValue(new TScriptProc(value->toProc()));
+			break;
+		case DATA_FILE:
+			setValue(value->toFile());
 			break;
 		default:
 			type = DATA_NONE;
