@@ -426,6 +426,17 @@ TValue *map_project_name(void *node, TArgs *args, Context &context) {
 	return val;
 }
 
+TValue *map_hi_version(void *node, TArgs *args, Context &context)
+{
+	int len = strlen(args->value(0)->toStr());
+	char *s = new char[len + 1];
+	strcpy(s, args->value(0)->toStr());
+	cgt->GetParam(PARAM_HIASM_VERSION, s);
+	TValue *val = new TValue(s, true);
+	delete[] s;
+	return val;
+}
+
 const TFuncMap func_map[] = {
 	// ------------ STRINGS ----------------------------
 	{ "replace", 3, map_replace, "str, dst, src"},
@@ -464,5 +475,6 @@ const TFuncMap func_map[] = {
 
 	// ------------ ENVEROUMENT ------------------------
 	{ "project_dir", 0, map_project_dir, ""},
-	{ "project_name", 0, map_project_name, ""}
+	{ "project_name", 0, map_project_name, ""},
+	{ "hi_version", 1, map_hi_version, "mask"}
 };
