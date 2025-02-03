@@ -419,9 +419,19 @@ TValue *map_project_dir(void *node, TArgs *args, Context &context) {
 
 TValue *map_project_name(void *node, TArgs *args, Context &context) {
 	char *s = cgt->ReadStrParam(PARAM_PROJECT_NAME, context.element);
-	std::string p(s);
-	int pos = p.find_last_of(PATH_SLASH);
-	TValue *val = new TValue(p.substr(pos + 1, p.length() - pos - 5).c_str(), true);
+	char *hi_ver = new char[4];
+	strcpy(hi_ver, "%mj");
+	cgt->GetParam(PARAM_HIASM_VERSION, hi_ver);
+	TValue *val;
+	if (atoi(hi_ver) > 4)
+	{
+		std::string p(s);
+		int pos = p.find_last_of(PATH_SLASH);
+		val = new TValue(p.substr(pos + 1, p.length() - pos - 5).c_str(), true);
+	}
+	else
+		val = new TValue(s, true);
+	delete[] hi_ver;
 	delete[] s;
 	return val;
 }
