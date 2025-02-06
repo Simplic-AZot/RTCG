@@ -85,6 +85,13 @@ TValue *map_len(void *node, TArgs *args, Context &context) {
 	CG_LOG_RETURN(new TValue((int)str.length()))
 }
 
+TValue *map_strcat(void *node, TArgs *args, Context &context)
+{
+	std::string trg = (const char *)args->value(0)->toStr();
+	std::string src = (const char *)args->value(1)->toStr();
+	CG_LOG_RETURN(new TValue(trg.append(src).c_str(), false))
+}
+
 TValue *map_trace(void *node, TArgs *args, Context &context) {
 	CG_LOG_BEGIN
 
@@ -457,6 +464,7 @@ const TFuncMap func_map[] = {
 	{ "delete", 3, map_delete, "str, position, length"},
 	{ "split", 2, map_split, "str, delimiter"},
 	{ "len", 1, map_len, "str"},
+	{ "strcat", 1, map_strcat, "target, source"},
 
 	// ------------ SYSTEM -----------------------------
 	{ "trace", -1, map_trace, "text"},
