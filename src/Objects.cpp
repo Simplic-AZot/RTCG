@@ -435,7 +435,7 @@ TElementObject::TElementObject(id_element element) : TScriptObject(cgt->elGetCla
 }
 
 void TElementObject::initMap() {
-	count = 22;
+	count = 23;
 	mtdNames = (TSORecord*) malloc(sizeof (TSORecord) * count);
 	mtdNames[0] = makeField("name");
 	mtdNames[1] = makeField("numpoints");
@@ -459,6 +459,7 @@ void TElementObject::initMap() {
 	mtdNames[19] = makeField("is_link");
 	mtdNames[20] = makeField("is_main_link");
 	mtdNames[21] = makeField("link");
+	mtdNames[22] = makeField("eid");
 }
 
 int numPointsByType(id_element e, int type) {
@@ -574,6 +575,8 @@ TValue *TElementObject::execMethod(TTreeNode *node, long index, Context &context
 				CG_LOG_RETURN(new TValue(cgt->elLinkMain(e) == e ? 1 : 0))
 			case 21:
 				CG_LOG_RETURN(new TValue(new TElementObject(cgt->elLinkMain(e))))
+			case 22:
+				CG_LOG_RETURN(new TValue(cgt->elGetEID(e)))
 			default: {
 				CG_LOG_RETURN(data->fields.at(index - count)->value->duplicate())
 			}
